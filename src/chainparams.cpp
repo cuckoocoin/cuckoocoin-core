@@ -44,10 +44,10 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xf9;
-        pchMessageStart[1] = 0xbe;
-        pchMessageStart[2] = 0xb4;
-        pchMessageStart[3] = 0xd9;
+        pchMessageStart[0] = 0xcd;
+        pchMessageStart[1] = 0x93;
+        pchMessageStart[2] = 0xd8;
+        pchMessageStart[3] = 0xcf;
         vAlertPubKey = ParseHex("0418a597ea5fbc28a6c0803194701c7764aadaea40d82202a14f30e681cea576cdd0e6bc7a351d3fa6035823cb488c39aa1da7d2943223a6b07e9f879bf5857a2b");
         nDefaultPort = 8333;
         nMinerThreads = 0;
@@ -138,10 +138,10 @@ public:
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
         consensus.fPowAllowMinDifficultyBlocks = true;
-        pchMessageStart[0] = 0x0b;
-        pchMessageStart[1] = 0x11;
-        pchMessageStart[2] = 0x09;
-        pchMessageStart[3] = 0x07;
+        pchMessageStart[0] = 0x86;
+        pchMessageStart[1] = 0x5d;
+        pchMessageStart[2] = 0xfe;
+        pchMessageStart[3] = 0x90;
         vAlertPubKey = ParseHex("04e11dc7b71501785424a6bafcca16eb2b975138c7434e46bbb9f002c4f23d7a82791f599cfe79228c7c969d1d5c85153e18a7a81f1fa98648e6db0feb89607f22");
         nDefaultPort = 18333;
         nMinerThreads = 0;
@@ -200,10 +200,10 @@ public:
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        pchMessageStart[0] = 0xfa;
-        pchMessageStart[1] = 0xbf;
-        pchMessageStart[2] = 0xb5;
-        pchMessageStart[3] = 0xda;
+        pchMessageStart[0] = 0x71;
+        pchMessageStart[1] = 0x19;
+        pchMessageStart[2] = 0xea;
+        pchMessageStart[3] = 0x8c;
         nMinerThreads = 1;
         nMaxTipAge = 24 * 60 * 60;
         genesis.nTime = 1296688602;
