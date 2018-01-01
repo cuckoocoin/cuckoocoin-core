@@ -394,6 +394,7 @@ static bool rest_getutxos(AcceptedConnection* conn,
         // convert hex to bin, continue then with bin part
         std::vector<unsigned char> strRequestV = ParseHex(strRequest);
         strRequestMutable.assign(strRequestV.begin(), strRequestV.end());
+        [[gnu::fallthrough]];
     }
 
     case RF_BINARY: {
