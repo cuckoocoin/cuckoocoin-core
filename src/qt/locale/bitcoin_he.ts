@@ -2795,8 +2795,8 @@
         <translation>שגיאה: נמצא ארגומנט בלתי נתמך ‎-tor, יש להשתמש ב־‎-onion.</translation>
     </message>
     <message>
-        <source>Fee (in BTC/kB) to add to transactions you send (default: %s)</source>
-        <translation>עמלה (ב־BTC/ק״ב) להוספה להעברות שנשלחות ממך (בררת מחדל: %s)</translation>
+        <source>Fee (in CUC/kB) to add to transactions you send (default: %s)</source>
+        <translation>עמלה (ב־CUC/ק״ב) להוספה להעברות שנשלחות ממך (בררת מחדל: %s)</translation>
     </message>
     <message>
         <source>Information</source>

@@ -3057,8 +3057,8 @@
         <translation>İlgili bir uyarı alındığında ya da gerçekten uzun bir çatallama gördüğümüzde komutu çalıştır (komuttaki %s mesaj ile değiştirilir)</translation>
     </message>
     <message>
-        <source>Fees (in BTC/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Kb başına BTC olarak bundan düşük ücretler aktarım için sıfır değerinde ücret olarak kabul edilir (varsayılan: %s)</translation>
+        <source>Fees (in CUC/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <translation>Kb başına CUC olarak bundan düşük ücretler aktarım için sıfır değerinde ücret olarak kabul edilir (varsayılan: %s)</translation>
     </message>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
@@ -3193,8 +3193,8 @@ mesela: alertnotify=echo %%s | mail -s "Bitcoin Alert" admin@foo.com
         <translation>Hata: Deskteklenmeyen -tor argümanı bulundu, -onion kullanınız.</translation>
     </message>
     <message>
-        <source>Fee (in BTC/kB) to add to transactions you send (default: %s)</source>
-        <translation>Yolladığınız muamelelere kB başına BTC olarak eklenecek ücret (varsayılan: %s)</translation>
+        <source>Fee (in CUC/kB) to add to transactions you send (default: %s)</source>
+        <translation>Yolladığınız muamelelere kB başına CUC olarak eklenecek ücret (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Information</source>
