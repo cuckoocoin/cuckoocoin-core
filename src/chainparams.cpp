@@ -64,6 +64,7 @@ public:
          */
         const char* pszTimestamp = "Cuckoocoine1a7a03cf54db76a3670bda29861f9ddb8337a194bd5c262b4e9d40116bbef9c";
         CMutableTransaction txNew;
+        txNew.nVersion = 1;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
