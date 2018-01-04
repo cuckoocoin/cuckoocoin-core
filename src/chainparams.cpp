@@ -12,6 +12,8 @@
 
 #include <boost/assign/list_of.hpp>
 
+#include "base58.h"
+
 using namespace std;
 
 #include "chainparamsseeds.h"
@@ -110,6 +112,10 @@ public:
                         //   (the tx=... number in the SetBestChain debug.log lines)
             60000.0     // * estimated number of transactions per day after checkpoint
         };
+
+        // Founders reward script expects a vector of 2-of-3 multisig addresses
+        vFoundersRewardAddress = { };
+        assert(vFoundersRewardAddress.size() <= (unsigned)consensus.GetLastFoundersRewardBlockHeight());
     }
 };
 static CMainParams mainParams;
@@ -169,6 +175,9 @@ public:
             300
         };
 
+        // Founders reward script expects a vector of 2-of-3 multisig addresses
+        vFoundersRewardAddress = { };
+        assert(vFoundersRewardAddress.size() <= (unsigned)consensus.GetLastFoundersRewardBlockHeight());
     }
 };
 static CTestNetParams testNetParams;
@@ -216,6 +225,10 @@ public:
             0,
             0
         };
+
+        // Founders reward script expects a vector of 2-of-3 multisig addresses
+        vFoundersRewardAddress = { };
+        assert(vFoundersRewardAddress.size() <= (unsigned)consensus.GetLastFoundersRewardBlockHeight());
     }
 };
 static CRegTestParams regTestParams;
@@ -254,4 +267,33 @@ bool SelectParamsFromCommandLine()
 
     SelectParams(network);
     return true;
+}
+
+// Block height must be >0 and <=last founders reward block height
+// Index variable i ranges from 0 - (vFoundersRewardAddress.size()-1)
+std::string CChainParams::GetFoundersRewardAddressAtHeight(int nHeight) const {
+    int maxHeight = consensus.GetLastFoundersRewardBlockHeight();
+    assert(nHeight > 0 && nHeight <= maxHeight);
+
+    size_t addressChangeInterval = (maxHeight + vFoundersRewardAddress.size()) / vFoundersRewardAddress.size();
+    size_t i = nHeight / addressChangeInterval;
+    return vFoundersRewardAddress[i];
+}
+
+// Block height must be >0 and <=last founders reward block height
+// The founders reward address is expected to be a multisig (P2SH) address
+CScript CChainParams::GetFoundersRewardScriptAtHeight(int nHeight) const {
+    assert(nHeight > 0 && nHeight <= consensus.GetLastFoundersRewardBlockHeight());
+
+    CBitcoinAddress address(GetFoundersRewardAddressAtHeight(nHeight).c_str());
+    assert(address.IsValid());
+    assert(address.IsScript());
+    CScriptID scriptID = get<CScriptID>(address.Get()); // Get() returns a boost variant
+    CScript script = CScript() << OP_HASH160 << ToByteVector(scriptID) << OP_EQUAL;
+    return script;
+}
+
+std::string CChainParams::GetFoundersRewardAddressAtIndex(int i) const {
+    assert((i >= 0) && ((unsigned)i < vFoundersRewardAddress.size()));
+    return vFoundersRewardAddress[i];
 }

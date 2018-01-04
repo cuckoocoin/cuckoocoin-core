@@ -384,6 +384,8 @@ Value getblocktemplate(const Array& params, bool fHelp)
 
     std::string strMode = "template";
     Value lpval = Value::null;
+    // TODO: Re-enable coinbasevalue once a specification has been written
+    bool coinbasetxn = true;
     if (params.size() > 0)
     {
         const Object& oparam = params[0].get_obj();
@@ -523,6 +525,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
 
     static const Array aCaps = boost::assign::list_of("proposal");
 
+    Value txCoinbase = Value::null;
     Array transactions;
     map<uint256, int64_t> setTxIndex;
     int i = 0;
@@ -531,7 +534,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
         uint256 txHash = tx.GetHash();
         setTxIndex[txHash] = i++;
 
-        if (tx.IsCoinBase())
+        if (tx.IsCoinBase() && !coinbasetxn)
             continue;
 
         Object entry;
@@ -552,7 +555,17 @@ Value getblocktemplate(const Array& params, bool fHelp)
         entry.push_back(Pair("fee", pblocktemplate->vTxFees[index_in_template]));
         entry.push_back(Pair("sigops", pblocktemplate->vTxSigOps[index_in_template]));
 
-        transactions.push_back(entry);
+        if (tx.IsCoinBase()) {
+            // Show founders' reward if it is required
+            if (pblock->vtx[0].vout.size() > 1) {
+                // Correct this if GetBlockTemplate changes the order
+                entry.push_back(Pair("foundersreward", (int64_t)tx.vout[1].nValue));
+            }
+            entry.push_back(Pair("required", true));
+            txCoinbase = entry;
+        } else {
+            transactions.push_back(entry);
+        }
     }
 
     Object aux;
@@ -573,8 +586,13 @@ Value getblocktemplate(const Array& params, bool fHelp)
     result.push_back(Pair("version", pblock->nVersion));
     result.push_back(Pair("previousblockhash", pblock->hashPrevBlock.GetHex()));
     result.push_back(Pair("transactions", transactions));
-    result.push_back(Pair("coinbaseaux", aux));
-    result.push_back(Pair("coinbasevalue", (int64_t)pblock->vtx[0].vout[0].nValue));
+    if (coinbasetxn) {
+        assert(txCoinbase.type() == obj_type);
+        result.push_back(Pair("coinbasetxn", txCoinbase));
+    } else {
+        result.push_back(Pair("coinbaseaux", aux));
+        result.push_back(Pair("coinbasevalue", (int64_t)pblock->vtx[0].vout[0].nValue));
+    }
     result.push_back(Pair("longpollid", chainActive.Tip()->GetBlockHash().GetHex() + i64tostr(nTransactionsUpdatedLast)));
     result.push_back(Pair("target", hashTarget.GetHex()));
     result.push_back(Pair("mintime", (int64_t)pindexPrev->GetMedianTimePast()+1));
@@ -726,4 +744,40 @@ Value estimatepriority(const Array& params, bool fHelp)
         nBlocks = 1;
 
     return mempool.estimatePriority(nBlocks);
+}
+
+Value getblocksubsidy(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "getblocksubsidy height\n"
+            "\nReturns block subsidy reward, taking into account the mining slow start and the founders reward, of block at index provided.\n"
+            "\nArguments:\n"
+            "1. height         (numeric, optional) The block height.  If not provided, defaults to the current height of the chain.\n"
+            "\nResult:\n"
+            "{\n"
+            "  \"miner\" : x.xxx           (numeric) The mining reward amount in CUC.\n"
+            "  \"founders\" : x.xxx        (numeric) The founders reward amount in CUC.\n"
+            "}\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getblocksubsidy", "1000")
+            + HelpExampleRpc("getblockubsidy", "1000")
+        );
+
+    LOCK(cs_main);
+    int nHeight = (params.size()==1) ? params[0].get_int() : chainActive.Height();
+    if (nHeight < 0)
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Block height out of range");
+
+    CAmount nReward = GetBlockSubsidy(nHeight, Params().GetConsensus());
+    CAmount nFoundersReward = 0;
+    if ((nHeight > 0) && (nHeight <= Params().GetConsensus().GetLastFoundersRewardBlockHeight())) {
+        nFoundersReward = nReward/10;
+        nReward -= nFoundersReward;
+    }
+    Object result;
+    result.push_back(Pair("miner", ValueFromAmount(nReward)));
+    result.push_back(Pair("founders", ValueFromAmount(nFoundersReward)));
+
+    return result;
 }
