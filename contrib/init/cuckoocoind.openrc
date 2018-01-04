@@ -1,0 +1,88 @@
+#!/sbin/runscript
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/cuckoocoin/.cuckoocoin" ]; then
+	CUCKOOCOIND_DEFAULT_DATADIR="/var/lib/cuckoocoin/.cuckoocoin"
+else
+	CUCKOOCOIND_DEFAULT_DATADIR="/var/lib/cuckoocoind"
+fi
+
+CUCKOOCOIND_CONFIGFILE=${CUCKOOCOIND_CONFIGFILE:-/etc/cuckoocoin/cuckoocoin.conf}
+CUCKOOCOIND_PIDDIR=${CUCKOOCOIND_PIDDIR:-/var/run/cuckoocoind}
+CUCKOOCOIND_PIDFILE=${CUCKOOCOIND_PIDFILE:-${CUCKOOCOIND_PIDDIR}/cuckoocoind.pid}
+CUCKOOCOIND_DATADIR=${CUCKOOCOIND_DATADIR:-${CUCKOOCOIND_DEFAULT_DATADIR}}
+CUCKOOCOIND_USER=${CUCKOOCOIND_USER:-${CUCKOOCOIN_USER:-cuckoocoin}}
+CUCKOOCOIND_GROUP=${CUCKOOCOIND_GROUP:-cuckoocoin}
+CUCKOOCOIND_BIN=${CUCKOOCOIND_BIN:-/usr/bin/cuckoocoind}
+CUCKOOCOIND_NICE=${CUCKOOCOIND_NICE:-${NICELEVEL:-0}}
+CUCKOOCOIND_OPTS="${CUCKOOCOIND_OPTS:-${CUCKOOCOIN_OPTS}}"
+
+name="Cuckoocoin Core Daemon"
+description="Cuckoocoin cryptocurrency P2P network daemon"
+
+command="/usr/bin/cuckoocoind"
+command_args="-pid=\"${CUCKOOCOIND_PIDFILE}\" \
+		-conf=\"${CUCKOOCOIND_CONFIGFILE}\" \
+		-datadir=\"${CUCKOOCOIND_DATADIR}\" \
+		-daemon \
+		${CUCKOOCOIND_OPTS}"
+
+required_files="${CUCKOOCOIND_CONFIGFILE}"
+start_stop_daemon_args="-u ${CUCKOOCOIND_USER} \
+			-N ${CUCKOOCOIND_NICE} -w 2000"
+pidfile="${CUCKOOCOIND_PIDFILE}"
+retry=60
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${CUCKOOCOIND_USER}:${CUCKOOCOIND_GROUP}" \
+	"${CUCKOOCOIND_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${CUCKOOCOIND_USER}:${CUCKOOCOIND_GROUP}" \
+	"${CUCKOOCOIND_PIDDIR}"
+
+	checkpath -f \
+	-o ${CUCKOOCOIND_USER}:${CUCKOOCOIND_GROUP} \
+	-m 0660 \
+	${CUCKOOCOIND_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${CUCKOOCOIND_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run cuckoocoind."
+		eerror "The setting must appear in ${CUCKOOCOIND_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following"
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is also recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"Cuckoocoin Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

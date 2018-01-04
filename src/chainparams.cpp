@@ -1,5 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -47,7 +48,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  * database.
  *
  * >>> from pyblake2 import blake2s
- * >>> 'Cuckoocoin' + blake2s(b'NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56 BTC#433272 000000000000000002c46a68972be8e6f671774e773449ea81c198243e3782c8 BTC#500819 0000000000000000005087254f1c1aea6f75ff0735b440432fd8a68d56ae0bba DJIA close on 29 Nov 2017: 23,940.68').hexdigest()
+ * >>> 'Cuckoocoin' + blake2s(b'NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56 CUC#433272 000000000000000002c46a68972be8e6f671774e773449ea81c198243e3782c8 CUC#500819 0000000000000000005087254f1c1aea6f75ff0735b440432fd8a68d56ae0bba DJIA close on 29 Nov 2017: 23,940.68').hexdigest()
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
@@ -108,7 +109,7 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
-        // the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+        // the first character, when base58 encoded, is "5" or "K" or "L" (as in Cuckoocoin)
 	base58Prefixes[SECRET_KEY]     = {0x80};
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
@@ -182,7 +183,7 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
-        // the first character, when base58 encoded, is "9" or "c" (as in Bitcoin)
+        // the first character, when base58 encoded, is "9" or "c" (as in Cuckoocoin)
 	base58Prefixes[SECRET_KEY]     = {0xEF};
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
@@ -330,7 +331,7 @@ std::string CChainParams::GetFoundersRewardAddressAtHeight(int nHeight) const {
 CScript CChainParams::GetFoundersRewardScriptAtHeight(int nHeight) const {
     assert(nHeight > 0 && nHeight <= consensus.GetLastFoundersRewardBlockHeight());
 
-    CBitcoinAddress address(GetFoundersRewardAddressAtHeight(nHeight).c_str());
+    CCuckoocoinAddress address(GetFoundersRewardAddressAtHeight(nHeight).c_str());
     assert(address.IsValid());
     assert(address.IsScript());
     CScriptID scriptID = get<CScriptID>(address.Get()); // Get() returns a boost variant

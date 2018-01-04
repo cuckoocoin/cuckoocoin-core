@@ -1,0 +1,3 @@
+debian/manpages/cuckoocoind.1
+debian/manpages/cuckoocoin.conf.5
+debian/manpages/cuckoocoin-cli.1

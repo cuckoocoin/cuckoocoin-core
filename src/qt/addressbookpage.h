@@ -1,9 +1,10 @@
 // Copyright (c) 2011-2013 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_ADDRESSBOOKPAGE_H
-#define BITCOIN_QT_ADDRESSBOOKPAGE_H
+#ifndef CUCKOOCOIN_QT_ADDRESSBOOKPAGE_H
+#define CUCKOOCOIN_QT_ADDRESSBOOKPAGE_H
 
 #include <QDialog>
 
@@ -84,4 +85,4 @@ Q_SIGNALS:
     void sendCoins(QString addr);
 };
 
-#endif // BITCOIN_QT_ADDRESSBOOKPAGE_H
+#endif // CUCKOOCOIN_QT_ADDRESSBOOKPAGE_H

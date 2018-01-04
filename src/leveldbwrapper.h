@@ -1,9 +1,10 @@
 // Copyright (c) 2012-2014 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_LEVELDBWRAPPER_H
-#define BITCOIN_LEVELDBWRAPPER_H
+#ifndef CUCKOOCOIN_LEVELDBWRAPPER_H
+#define CUCKOOCOIN_LEVELDBWRAPPER_H
 
 #include "clientversion.h"
 #include "serialize.h"
@@ -173,4 +174,4 @@ public:
     }
 };
 
-#endif // BITCOIN_LEVELDBWRAPPER_H
+#endif // CUCKOOCOIN_LEVELDBWRAPPER_H

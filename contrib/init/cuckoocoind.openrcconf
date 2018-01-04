@@ -1,0 +1,27 @@
+# /etc/conf.d/cuckoocoind: config file for /etc/init.d/cuckoocoind
+
+# Config file location
+#CUCKOOCOIND_CONFIGFILE="/etc/cuckoocoin/cuckoocoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $CUCKOOCOIND_USER)
+#CUCKOOCOIND_PIDDIR="/var/run/cuckoocoind"
+
+# What filename to give the pidfile
+#CUCKOOCOIND_PIDFILE="${CUCKOOCOIND_PIDDIR}/cuckoocoind.pid"
+
+# Where to write cuckoocoind data (be mindful that the blockchain is large)
+#CUCKOOCOIND_DATADIR="/var/lib/cuckoocoind"
+
+# User and group to own cuckoocoind process
+#CUCKOOCOIND_USER="cuckoocoin"
+#CUCKOOCOIND_GROUP="cuckoocoin"
+
+# Path to cuckoocoind executable
+#CUCKOOCOIND_BIN="/usr/bin/cuckoocoind"
+
+# Nice value to run cuckoocoind under
+#CUCKOOCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+CUCKOOCOIND_OPTS="-disablewallet"
+

@@ -1,16 +1,17 @@
 // Copyright (c) 2014 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_CHAINPARAMSBASE_H
-#define BITCOIN_CHAINPARAMSBASE_H
+#ifndef CUCKOOCOIN_CHAINPARAMSBASE_H
+#define CUCKOOCOIN_CHAINPARAMSBASE_H
 
 #include <string>
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between bitcoin-cli and bitcoind)
- * of a given instance of the Bitcoin system.
+ * CBaseChainParams defines the base parameters (shared between cuckoocoin-cli and cuckoocoind)
+ * of a given instance of the Cuckoocoin system.
  */
 class CBaseChainParams
 {
@@ -60,4 +61,4 @@ bool SelectBaseParamsFromCommandLine();
  */
 bool AreBaseParamsConfigured();
 
-#endif // BITCOIN_CHAINPARAMSBASE_H
+#endif // CUCKOOCOIN_CHAINPARAMSBASE_H

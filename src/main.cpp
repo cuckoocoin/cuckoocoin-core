@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -35,7 +36,7 @@
 using namespace std;
 
 #if defined(NDEBUG)
-# error "Bitcoin cannot be compiled without assertions."
+# error "Cuckoocoin cannot be compiled without assertions."
 #endif
 
 /**
@@ -86,7 +87,7 @@ static void CheckBlockIndex();
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Bitcoin Signed Message:\n";
+const string strMessageMagic = "Cuckoocoin Signed Message:\n";
 
 // Internal stuff
 namespace {
@@ -1751,7 +1752,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("bitcoin-scriptch");
+    RenameThread("cuckoocoin-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -4748,7 +4749,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     else if (fAlerts && strCommand == "alert")
     {
         // Alert message handling disabled
-        // See https://bitcoin.org/en/alert/2016-11-01-alert-retirement
+        // See https://cuckoocoin.org/en/alert/2016-11-01-alert-retirement
     }
 
 

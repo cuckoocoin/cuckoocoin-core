@@ -1,9 +1,10 @@
 // Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_ECWRAPPER_H
-#define BITCOIN_ECWRAPPER_H
+#ifndef CUCKOOCOIN_ECWRAPPER_H
+#define CUCKOOCOIN_ECWRAPPER_H
 
 #include <cstddef>
 #include <vector>
@@ -37,4 +38,4 @@ public:
     static bool SanityCheck();
 };
 
-#endif // BITCOIN_ECWRAPPER_H
+#endif // CUCKOOCOIN_ECWRAPPER_H

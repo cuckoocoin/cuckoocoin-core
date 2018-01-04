@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_STREAMS_H
-#define BITCOIN_STREAMS_H
+#ifndef CUCKOOCOIN_STREAMS_H
+#define CUCKOOCOIN_STREAMS_H
 
 #include "support/allocators/zeroafterfree.h"
 #include "serialize.h"
@@ -658,4 +659,4 @@ public:
     }
 };
 
-#endif // BITCOIN_STREAMS_H
+#endif // CUCKOOCOIN_STREAMS_H

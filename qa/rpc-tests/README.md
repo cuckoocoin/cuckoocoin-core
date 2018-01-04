@@ -1,9 +1,9 @@
 Regression tests of RPC interface
 =================================
 
-### [python-bitcoinrpc](https://github.com/jgarzik/python-bitcoinrpc)
-Git subtree of [https://github.com/jgarzik/python-bitcoinrpc](https://github.com/jgarzik/python-bitcoinrpc).
-Changes to python-bitcoinrpc should be made upstream, and then
+### [python-cuckoocoinrpc](https://github.com/jgarzik/python-cuckoocoinrpc)
+Git subtree of [https://github.com/jgarzik/python-cuckoocoinrpc](https://github.com/jgarzik/python-cuckoocoinrpc).
+Changes to python-cuckoocoinrpc should be made upstream, and then
 pulled here using git subtree.
 
 ### [test_framework/test_framework.py](test_framework/test_framework.py)
@@ -23,9 +23,9 @@ Possible options:
 
 ````
 -h, --help       show this help message and exit
-  --nocleanup      Leave bitcoinds and test.* datadir on exit or error
-  --noshutdown     Don't stop bitcoinds after the test execution
-  --srcdir=SRCDIR  Source directory containing bitcoind/bitcoin-cli (default:
+  --nocleanup      Leave cuckoocoinds and test.* datadir on exit or error
+  --noshutdown     Don't stop cuckoocoinds after the test execution
+  --srcdir=SRCDIR  Source directory containing cuckoocoind/cuckoocoin-cli (default:
                    ../../src)
   --tmpdir=TMPDIR  Root directory for datadirs
   --tracerpc       Print out all RPC calls as they are made
@@ -47,5 +47,5 @@ to recover with:
 
 ```bash
 rm -rf cache
-killall bitcoind
+killall cuckoocoind
 ```

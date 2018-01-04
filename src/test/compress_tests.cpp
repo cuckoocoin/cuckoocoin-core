@@ -1,10 +1,11 @@
 // Copyright (c) 2012-2013 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "compressor.h"
 #include "util.h"
-#include "test/test_bitcoin.h"
+#include "test/test_cuckoocoin.h"
 
 #include <stdint.h>
 

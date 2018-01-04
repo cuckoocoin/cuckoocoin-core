@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_SERIALIZE_H
-#define BITCOIN_SERIALIZE_H
+#ifndef CUCKOOCOIN_SERIALIZE_H
+#define CUCKOOCOIN_SERIALIZE_H
 
 #include "compat/endian.h"
 
@@ -913,4 +914,4 @@ inline void SerReadWriteMany(Stream& s, int nType, int nVersion, CSerActionUnser
     ::UnserializeMany(s, nType, nVersion, args...);
 }
 
-#endif // BITCOIN_SERIALIZE_H
+#endif // CUCKOOCOIN_SERIALIZE_H

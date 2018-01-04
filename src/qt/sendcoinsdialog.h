@@ -1,9 +1,10 @@
 // Copyright (c) 2011-2013 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_SENDCOINSDIALOG_H
-#define BITCOIN_QT_SENDCOINSDIALOG_H
+#ifndef CUCKOOCOIN_QT_SENDCOINSDIALOG_H
+#define CUCKOOCOIN_QT_SENDCOINSDIALOG_H
 
 #include "walletmodel.h"
 
@@ -25,7 +26,7 @@ QT_END_NAMESPACE
 
 const int defaultConfirmTarget = 25;
 
-/** Dialog for sending bitcoins */
+/** Dialog for sending cuckoocoins */
 class SendCoinsDialog : public QDialog
 {
     Q_OBJECT
@@ -98,4 +99,4 @@ Q_SIGNALS:
     void message(const QString &title, const QString &message, unsigned int style);
 };
 
-#endif // BITCOIN_QT_SENDCOINSDIALOG_H
+#endif // CUCKOOCOIN_QT_SENDCOINSDIALOG_H

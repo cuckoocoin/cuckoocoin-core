@@ -1,0 +1,22 @@
+[Unit]
+Description=Cuckoocoin's distributed currency daemon
+After=network.target
+
+[Service]
+User=cuckoocoin
+Group=cuckoocoin
+
+Type=forking
+PIDFile=/var/lib/cuckoocoind/cuckoocoind.pid
+ExecStart=/usr/bin/cuckoocoind -daemon -pid=/var/lib/cuckoocoind/cuckoocoind.pid \
+-conf=/etc/cuckoocoin/cuckoocoin.conf -datadir=/var/lib/cuckoocoind -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

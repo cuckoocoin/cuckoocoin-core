@@ -1,9 +1,10 @@
 // Copyright (c) 2011-2014 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_SPLASHSCREEN_H
-#define BITCOIN_QT_SPLASHSCREEN_H
+#ifndef CUCKOOCOIN_QT_SPLASHSCREEN_H
+#define CUCKOOCOIN_QT_SPLASHSCREEN_H
 
 #include <QSplashScreen>
 
@@ -11,7 +12,7 @@ class NetworkStyle;
 
 /** Class for the splashscreen with information of the running client.
  *
- * @note this is intentionally not a QSplashScreen. Bitcoin Core initialization
+ * @note this is intentionally not a QSplashScreen. Cuckoocoin Core initialization
  * can take a long time, and in that case a progress window that cannot be
  * moved around and minimized has turned out to be frustrating to the user.
  */
@@ -46,4 +47,4 @@ private:
     int curAlignment;
 };
 
-#endif // BITCOIN_QT_SPLASHSCREEN_H
+#endif // CUCKOOCOIN_QT_SPLASHSCREEN_H

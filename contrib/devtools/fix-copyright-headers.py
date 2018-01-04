@@ -5,13 +5,13 @@ that were changed this year that still have the last year in the
 copyright headers, and it will fix the headers on that file using
 a perl regex one liner.
 
-For example: if it finds something like this and we're in 2014
+For example: if it finds something like this and we're in 2019
 
-// Copyright (c) 2009-2013 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The Cuckoocoin Core developers
 
 it will change it to
 
-// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2017-2019 The Cuckoocoin Core developers
 
 It will do this for all the files in the folder and its children.
 
@@ -22,7 +22,7 @@ import time
 
 year = time.gmtime()[0]
 last_year = year - 1
-command = "perl -pi -e 's/%s The Bitcoin/%s The Bitcoin/' %s"
+command = "perl -pi -e 's/%s The Cuckoocoin/%s The Cuckoocoin/' %s"
 listFilesCommand = "find . | grep %s"
 
 extensions = [".cpp",".h"]
