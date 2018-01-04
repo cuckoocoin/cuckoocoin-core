@@ -147,6 +147,9 @@ public:
 
     //! (memory only) Sequential id assigned to distinguish order in which blocks are received.
     uint32_t nSequenceId;
+ 
+    // The time at which this block was first seen locally.
+    int64_t nArrivalTime;
 
     void SetNull()
     {
@@ -168,6 +171,7 @@ public:
         nTime          = 0;
         nBits          = 0;
         nNonce         = 0;
+        nArrivalTime   = -1;
     }
 
     CBlockIndex()
@@ -225,6 +229,11 @@ public:
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;
+    }
+
+    int64_t GetBlockArrivalTime() const
+    {
+        return nArrivalTime;
     }
 
     enum { nMedianTimeSpan=11 };
@@ -320,6 +329,7 @@ public:
         READWRITE(nTime);
         READWRITE(nBits);
         READWRITE(nNonce);
+        READWRITE(nArrivalTime);
     }
 
     uint256 GetBlockHash() const
